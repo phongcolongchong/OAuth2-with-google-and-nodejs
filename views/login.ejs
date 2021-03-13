@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="654002685162-05of2jjo6hd2dlvllt1l6g9voscf701i.apps.googleusercontent.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="/style.css" type="text/css">
+</head>
+<body>
+  <div class="login">
+    <h1>Login</h1>
+      <form method="post">
+        <input type="text" name="u" placeholder="Username" required="required" />
+          <input type="password" name="p" placeholder="Password" required="required" />
+          <button type="submit" class="btn btn-primary btn-block btn-large">Sign in</button>
+          <div class="or">Or Sign in with Google</div>
+          <div class="g-signin2 btn" data-onsuccess="onSignIn"></div>
+      </form>
+  </div>
+
+  <script>
+    function onSignIn(googleUser) {
+      var id_token = googleUser.getAuthResponse().id_token;
+      var xhr = new XMLHttpRequest();
+
+      xhr.open('POST', '/login');
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onload = function() {
+        console.log('Signed in as: ' + xhr.responseText);
+        if (xhr.responseText === 'success') {
+          signOut();
+          location.assign('/dashboard');
+        }
+      };
+      xhr.send(JSON.stringify({ token: id_token }));
+    }
+  </script>
+
+  <script>
+    function signOut() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      });
+    }
+  </script>
+</body>
+</html>
