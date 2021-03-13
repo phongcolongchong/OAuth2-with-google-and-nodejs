@@ -17,7 +17,7 @@ OAuth2 is an authentication method so applications can share resources with each
 
 ## User manual
 
-* login page: http://localhost:5001/login
+* login page: http://localhost:5001/
 * Use google account to login
 * After successful login, you will be redirected to the dashboard, and then you can also access detected route by http://localhost:5001/detectedroute
 * After click sign out, you can't access dashboard and detected route
