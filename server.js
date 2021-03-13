@@ -15,10 +15,6 @@ app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
-  res.render('index');
-})
-
-app.get('/login', (req, res) => {
   res.render('login');
 })
 
@@ -55,7 +51,7 @@ app.get('/protectedroute', checkAuth, (req, res) => {
 
 app.get('/logout', (req, res) => {
   res.clearCookie('session-token');
-  res.redirect('/login');
+  res.redirect('/');
 })
 
 function checkAuth(req, res, next) {
